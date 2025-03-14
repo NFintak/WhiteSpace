@@ -10,7 +10,7 @@ public class Whitespace {
         Whitespace wspc = new Whitespace();
 
 
-        //wspc.countBoth("testdata1.txt");
+        wspc.fileChecker("testdata1.txt");
         //wspc.countBoth("testdata2.txt");
         //wspc.countBoth("testdata3.txt");
 
