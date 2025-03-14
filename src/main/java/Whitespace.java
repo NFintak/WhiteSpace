@@ -1,11 +1,19 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Scanner;
 
 public class Whitespace {
 
     public static void main(String[] args) throws IOException {
         Whitespace wspc = new Whitespace();
+
+
+        //wspc.countBoth("testdata1.txt");
+        //wspc.countBoth("testdata2.txt");
+        //wspc.countBoth("testdata3.txt");
+
 
         // for each file "testdata{1,2,3}.txt
         // read in all the text and
@@ -16,11 +24,34 @@ public class Whitespace {
     }
 
     private void countBoth(String testdata) {
+        int whitespaces = 0;
+        int non_whitespaces = 0;
+        for (int i = 0; i < testdata.length(); i++) {
+            if (testdata.charAt(i) == ' ') {
+                whitespaces++;
+            } else {
+                non_whitespaces++;
+            }
+        }
+        System.out.println(whitespaces + ", " + non_whitespaces);
 
-        // count the number of whitepace chars and non-whitspace chars.
+        // count the number of whitespace chars and non-whitespace chars.
         // need to use a FOR loop.
         // print the results simply on a line #whitespaces, #ofnonwhitespacechars for each file.
 
+    }
+
+    private void fileChecker(String fileHere) {
+        try {
+            Files newFile = new Files(fileHere);
+            Scanner scanner = new Scanner(newFile); //double check that this is the right start place
+            while (scanner.hasNextLine()) {
+                //String sentence = scanner.nextLine();
+                countBoth(newFile); //switched sentence to newFile
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+        }
     }
 
 
