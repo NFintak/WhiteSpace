@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.util.Scanner;
 
@@ -11,8 +12,8 @@ public class Whitespace {
 
 
         wspc.fileChecker("testdata1.txt");
-        //wspc.countBoth("testdata2.txt");
-        //wspc.countBoth("testdata3.txt");
+        wspc.fileChecker("testdata2.txt");
+        wspc.fileChecker("testdata3.txt");
 
 
         // for each file "testdata{1,2,3}.txt
@@ -25,15 +26,15 @@ public class Whitespace {
 
     private void countBoth(String testdata) {
         int whitespaces = 0;
-        int non_whitespaces = 0;
+        int nonWhitespaces = 0;
         for (int i = 0; i < testdata.length(); i++) {
             if (testdata.charAt(i) == ' ') {
                 whitespaces++;
             } else {
-                non_whitespaces++;
+                nonWhitespaces++;
             }
         }
-        System.out.println(whitespaces + ", " + non_whitespaces);
+        System.out.println(whitespaces + ", " + nonWhitespaces);
 
         // count the number of whitespace chars and non-whitespace chars.
         // need to use a FOR loop.
@@ -41,16 +42,20 @@ public class Whitespace {
 
     }
 
-    private void fileChecker(String fileHere) {
+    public void fileChecker(String fileHere) {
         try {
-            Files newFile = new Files(fileHere);
-            Scanner scanner = new Scanner(newFile); //double check that this is the right start place
+            Path path = Paths.get(fileHere);
+            Scanner scanner = new Scanner(path);
+            String sentence = "";
             while (scanner.hasNextLine()) {
-                //String sentence = scanner.nextLine();
-                countBoth(newFile); //switched sentence to newFile
+                sentence += scanner.nextLine() + " ";
             }
+            countBoth(sentence);
             scanner.close();
         } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
